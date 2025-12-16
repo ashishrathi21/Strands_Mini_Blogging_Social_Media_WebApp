@@ -192,3 +192,21 @@ export const getMyPosts = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+export const getUserPosts = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const posts = await postModel
+      .find({ user: userId })
+      .populate("user", "name username profilePicture")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      posts,
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};

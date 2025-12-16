@@ -8,12 +8,14 @@ import {
   getAllPosts,
   getPublicPosts,
   getMyPosts,
+  getUserPosts
 } from "../controllers/postController.js";
 
 const Router = express.Router();
 
 Router.delete("/delete-post/:postId", isLoggedIn, deletePost);
 Router.put("/like-post/:postId", isLoggedIn, likeOrDislikePost);
+Router.get("/user-posts/:userId", isLoggedIn, getUserPosts);
 Router.get("/all-posts", isLoggedIn, getAllPosts);
 Router.post("/create-post", isLoggedIn, upload.single("image"), createPost);
 Router.get("/public-posts", isLoggedIn, getPublicPosts);

@@ -7,8 +7,6 @@ import userRoute from './routes/userRoute.js'
 import postRoute from './routes/postRoute.js'
 import cors from 'cors'
 
-
-
 const app = express()
 dataBaseConnection()
 
@@ -21,10 +19,8 @@ app.use(cors({
   credentials: true,
 }))
 
-
 app.use('/api/v1/users', userRoute)
 app.use('/api/v1/posts', postRoute)
-
 
 app.get('/api/v1', (req, res) => {
   res.send('Hello World!')
