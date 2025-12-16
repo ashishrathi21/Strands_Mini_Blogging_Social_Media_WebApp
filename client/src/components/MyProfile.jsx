@@ -225,37 +225,115 @@ const MyProfile = ({ profile }) => {
       {/* ================= EDIT MODAL ================= */}
       {isEdit && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="w-full max-w-lg bg-[#131b2d] rounded-2xl p-6">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Name"
-                className="bg-[#0c1220] px-4 py-2 rounded"
-              />
-              <input
-                value={username}
-                onChange={(e) => setUserName(e.target.value)}
-                placeholder="Username"
-                className="bg-[#0c1220] px-4 py-2 rounded"
-              />
-              <textarea
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                rows={4}
-                placeholder="Bio"
-                className="bg-[#0c1220] px-4 py-2 rounded resize-none"
-              />
+          <div className="w-full max-w-lg bg-[#131b2d] rounded-2xl p-6 shadow-xl">
+            {/* HEADER */}
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-xl font-semibold">Edit Profile</h2>
+              <button
+                onClick={closeEditModal}
+                className="text-gray-400 hover:text-white"
+              >
+                ✕
+              </button>
+            </div>
 
-              <div className="flex justify-end gap-3">
-                <button type="button" onClick={closeEditModal}>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {/* COVER IMAGE */}
+              <div>
+                <label className="text-sm text-gray-400 mb-1 block">
+                  Cover Image
+                </label>
+                <div className="relative">
+                  <img
+                    src={
+                      coverPicture
+                        ? URL.createObjectURL(coverPicture)
+                        : coverImage
+                    }
+                    className="w-full h-32 object-cover rounded-lg"
+                    alt="cover"
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setCoverPicture(e.target.files[0])}
+                    className="absolute inset-0 opacity-0 cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              {/* PROFILE IMAGE */}
+              <div className="flex justify-center -mt-12">
+                <div className="relative">
+                  <img
+                    src={
+                      profilePicture
+                        ? URL.createObjectURL(profilePicture)
+                        : profileImage
+                    }
+                    className="w-24 h-24 rounded-full object-cover border-4 border-[#131b2d]"
+                    alt="profile"
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setProfilePicture(e.target.files[0])}
+                    className="absolute inset-0 opacity-0 cursor-pointer rounded-full"
+                  />
+                </div>
+              </div>
+
+              {/* NAME */}
+              <div>
+                <label className="text-sm text-gray-400 mb-1 block">Name</label>
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full bg-[#0c1220] px-4 py-2 rounded-lg outline-none"
+                  placeholder="Your name"
+                />
+              </div>
+
+              {/* USERNAME */}
+              <div>
+                <label className="text-sm text-gray-400 mb-1 block">
+                  Username
+                </label>
+                <input
+                  value={username}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className="w-full bg-[#0c1220] px-4 py-2 rounded-lg outline-none"
+                  placeholder="@username"
+                />
+              </div>
+
+              {/* BIO */}
+              <div>
+                <label className="text-sm text-gray-400 mb-1 block">Bio</label>
+                <textarea
+                  rows={4}
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                  className="w-full bg-[#0c1220] px-4 py-2 rounded-lg outline-none resize-none"
+                  placeholder="Tell something about yourself..."
+                />
+              </div>
+
+              {/* ACTION BUTTONS */}
+              <div className="flex justify-end gap-3 mt-3">
+                <button
+                  type="button"
+                  onClick={closeEditModal}
+                  className="text-gray-400 hover:text-white"
+                >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-purple-600 px-5 py-2 rounded"
+                  className="bg-gradient-to-r from-purple-600 to-indigo-600
+            px-6 py-2 rounded-full text-sm font-medium hover:opacity-90"
                 >
-                  Save
+                  Save Changes
                 </button>
               </div>
             </form>
